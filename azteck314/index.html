@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8" />
-		<title>TEMPLATE</title>
+		<title>Project Showroom</title>
 		<meta name="viewport"           content="width=device-width, initial-scale=1.0" />
 		<meta http-equiv="content-type" content="text/html; charset=windows-1252" />
 		
@@ -24,48 +24,162 @@
 		<!-- proprietary -->
 		<script src="index.js"></script>
 		<link rel="stylesheet" href="index.css" />
+		
+		<!-- JavaScript -->
+		<script type="text/javascript" language="javascript">
+			
+			const notfound = "index.png";
+			
+			const files = [
+				{ name : "01.png", desc : "URL access through codeigniter framework", },
+				{ name : "02.png", desc : "navigation links through codeigniter framework styled with bootstrap", },
+				{ name : "03.png", desc : "responsive web design with bootstrap", },
+				{ name : "04.png", desc : "responsive web design with bootstrap", },
+				{ name : "05.png", desc : "dismissable error messages with bootstrap", },
+				{ name : "06.png", desc : "jTable populated with data from database", },
+				{ name : "07.png", desc : "jTable edit existing record", },
+				{ name : "08.png", desc : "jTable insert new record", },
+				{ name : "09.png", desc : "results of insert new record", },
+				{ name : "10.png", desc : "Select2 contains the newly inserted data", },
+				{ name : "11.png", desc : "Select2 with search/filter functionality", },
+				{ name : "12.png", desc : "- frontend change triggers ajax call to backend...<br />"
+										+ "- backend performs database operations, and...<br />"
+										+ "- GUI element shows success, and disappears after 2 seconds", },
+				{ name : "13.png", desc : "mysql database with 2 tables, containing the previously inserted records", },
+			];
+			
+			let index = 0;
+			
+			function refresh() {
+				
+				if (index >= 0 && index <= files.length - 1) {
+					//HEADER
+					$('#header').html(files[index].desc);
+					
+					//BACK
+					if (index <= 0) {
+						$('#back').prop({
+							"disabled" : true,
+							"class" : "btn btn-primary btn-block disabled",
+							"src"   : notfound,
+						});
+					} else {
+						$('#back').prop({
+							"disabled" : false,
+							"class" : "btn btn-primary btn-block",
+							"src"   : files[index-1].name,
+						});
+					}
+					
+					//MAIN
+					if (index < 0 || index > files.length - 1) {
+						$('#main').prop({
+							"class" : "disabled",
+							"src"   : notfound,
+						});
+					} else {
+						$('#main').prop({
+							"src"   : files[index].name,
+							"title" : files[index].desc,
+						});
+					}
+					
+					//NEXT
+					if (index >= files.length - 1) {
+						$('#next').prop({
+							"disabled" : true,
+							"class" : "btn btn-primary btn-block disabled",
+							"src"   : notfound,
+						});
+					} else {
+						$('#next').prop({
+							"disabled" : false,
+							"class" : "btn btn-primary btn-block",
+							"src"   : files[index+1].name,
+						});
+					}
+					
+					//FOOTER
+					$('#footer').html('&copy; 2025 Boros Szabolcs.<br /><a href="https://github.com/boros-szabolcs/azteck314" target="_blank">For Ungvari Csongor Istvan</a>');
+				} else {
+					console.log("nope: " + index);
+				}
+				
+			}
+			
+			function back() {
+				if (index >= 1 && index <= files.length - 1) {
+					log = " <- " + index;
+					index--;
+					log = index + log;
+					console.log('back: ' + log);
+					refresh();
+				} else {
+					console.log('back');
+				}
+			}
+			
+			function next() {
+				if (index >= 0 && index <= files.length - 2) {
+					log = "" + index + " -> ";
+					index++;
+					log = log + index;
+					console.log('next: ' + log);
+					refresh();
+				} else {
+					console.log('next');
+				}
+			}
+			
+		</script>
 	</head>
+	
 	<body>
 		<div class="container-fluid">
+			
 			<div class="row">
 				<div class="col-md-offset-2 col-md-8">
-					header
+					<h2><div id="header">header</div></h2>
 				</div>
 			</div>
+			
 			<div class="row">
 				<div class="col-md-2">
 					<div class="well well-sm">
-						<button type="button" disabled
-								class="btn btn-primary btn-block disabled"
-								onclick="console.log(this.innerHTML);">
-							<img class="img-thumbnail"
-								 src="" />
+						<button type="button" onclick="back();">
+							<img id="back" class="img-thumbnail" src="" title="PREVIOUS" />
 						</button>
 					</div>
 				</div>
 				<div class="col-md-8">
 					<div class="well well-lg">
-						<img class="img-rounded"
-							 src="" />
+						<img id="main" class="img-rounded" src="" title="" />
 					</div>
 				</div>
 				<div class="col-md-2">
 					<div class="well well-sm">
-						<button type="button"
-								class="btn btn-primary btn-block active"
-								onclick="console.log(this.innerHTML);">
-							<img class="img-thumbnail"
-								 src="" />
+						<button type="button" onclick="next();">
+							<img id="next" class="img-thumbnail" src="" title="NEXT" />
 						</button>
 					</div>
 				</div>
 			</div>
+			
 			<div class="row">
 				<div class="col-md-offset-2 col-md-8">
-					footer
+					<div id="footer">footer</div>
 				</div>
 			</div>
+			
 		</div>
+		
+		<script type="text/javascript" language="javascript">
+			
+			$(document).ready(function(){
+				refresh();
+			});
+			
+		</script>
 	</body>
 </html>
 
